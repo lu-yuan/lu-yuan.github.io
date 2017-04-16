@@ -9,10 +9,14 @@ li {
 	height: 50px;
 	line-height: 50px;
 	padding: 0 15%;
-	font-size: 18px;
+	font-size: 16px;
 	color: #ff5500;
 	font-family: normal;
 	background-color: #000;
+}
+.header h3 {
+	font-family: normal;
+	margin: 0;
 }
 .container {
 	padding: 15px 15% 0;
@@ -26,6 +30,9 @@ li {
 	color:#999;
 	background-color: #f3f3f3;
 	border-left: 10px solid #e9e9e9;
+}
+.container .article-heading h4 {
+	font-weight: normal;
 }
 .article-body ul li {
 	border-bottom: 1px solid #bfbfbf;
