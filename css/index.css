@@ -38,18 +38,18 @@ li {
 	border-bottom: 1px solid #bfbfbf;
 	margin-bottom: 10px;
 }
-.article-body .blog-title a {
+.blog-title a {
 	line-height: 20px;
 	font-size: 16px;
 	color: #0da4d3;
 	text-decoration: none;
 }
-.article-body .blog-title a:hover {
+.blog-title a:hover {
 	color: #333;
 	text-decoration: underline;
 }
 
-.article-body .blog-subtitle {
+.blog-subtitle {
 	line-height: 30px;
 	font-size: 12px;
 	color: #bbb;
