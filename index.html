@@ -1,11 +1,24 @@
 ---
 layout: default
-title: 我的Blog
+title: 鹿园的博客
 ---
-<h2>{{ page.title }}</h2>
-<p>最新文章</p>
-<ul>
-	{% for post in site.posts %}
-　　　　<li>{{ post.date | date_to_string }} <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
-　　{% endfor %}
-</ul>
+<div class="header">
+	<h2>{{ page.title }}</h2>
+</div>
+<div class="container">
+	<div class="article-heading">
+		<h4>最新文章</h4>
+	</div>
+	<div class="article-body">
+		<ul>
+			{% for post in site.posts %}
+		　　		<li>
+					<div class="blog-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></div>
+					<div class="blog-subtitle">{{ post.date | date_to_string }} | 推荐：lu-yuan</div>
+					<div class="blog-img"><img src="{{post.introduceImg}}"></div>
+					<div class="blog-summary">{{post.summary}}...</div>
+				</li>
+		　　{% endfor %}
+		</ul>
+	</div>
+</div>
