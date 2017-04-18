@@ -15,7 +15,7 @@ title: 鹿园的博客
 		　　		<li>
 					<div class="blog-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></div>
 					<div class="blog-subtitle">{{ post.date | date_to_string }} | 推荐：lu-yuan</div>
-					<div class="blog-img"><img src="images/{{site.posts.index}}.jpg"></div>
+					<div class="blog-img"><img src="images/{{ post.index }}.jpg"></div>
 					<!-- <div class="blog-summary">{{ post.content }}...</div> -->
 				</li>
 		　　{% endfor %}
