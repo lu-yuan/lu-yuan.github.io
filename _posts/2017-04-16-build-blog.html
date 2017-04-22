@@ -1,0 +1,289 @@
+---
+layout: default2
+title: 在github上搭建免费的博客
+---
+<div class="container">
+<div class="blog-title">{{ page.title }}</div>
+<div class="blog-subtitle">{{ page.date | date_to_string }} | 推荐：lu-yuan</div>
+<div class="main-content">
+      github好多年前，大家都开始玩啦，我这个菜鸟近几年才开始。github不仅可以管理项目，还可以搭建博客。技术人员，一般用的博客为博客园，CSDN多一些。看到朋友们都弄一个，我也开始弄起来，先找点资料看看，然后开始动手了。
+
+      我的电脑是MAC的，其他系统也差不多。先看看我建博客的过程，已经成功了，而且很好用，大家可以看看我的网址https://lu-yuan.github.io .
+
+　　(1)首先在github上注册账号，可以使用github，https://github.com/join?source=header-home
+
+这个比较简单，填写用户名，邮箱，密码等就可以了。如果有账号了，我们接着看下面。
+
+　　(2)搭建github博客，需要用的东西，github page, jekyll模板。
+
+首先打开https://pages.github.com/，按照步骤一步一步来，
+
+第一步，先建一个项目仓库，名称很重要，要和用户名一致。
+<img src="../images/1-1.jpg">
+
+
+ 第二步，github客户端下载，超好用的，下载客户端，
+<img src="../images/1-2.jpg">
+
+
+客户端装成了，
+
+第三步，创建index.html
+
+
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Hello World</h1>
+<p>I'm hosted with GitHub Pages.</p>
+</body>
+</html>
+
+ 
+
+第四步，先选中change部分，然后commit, 再然后sync
+<img src="../images/1-3.jpg">
+
+
+第五步，提交成功，浏览页面，https://username.github.io   记得username换成你的用户名
+
+ 
+
+github pages完成了，接着jekyll模板部分。
+
+jekyll是静态站点生成器。根据网页源码生成静态文件。提供了模板，变量，插件等功能，用来编写整个网站
+
+第一步，创建项目，
+
+在本地先建个文件夹，blog.
+
+ 
+
+$ mkdir jekyll_demo
+
+ 
+
+对该目录进行git初始化
+
+ 
+
+$ cd blog
+
+$ git init
+
+ 
+
+然后，创建一个没有父节点的分支gh-pages。因为github规定，只有该分支中的页面，才会生成网页文件。
+
+ 
+
+$ git checkout --orphan gh-pages
+
+ 
+
+第二步，创建设置文件
+
+在根目录下，创建一个名为_config.yml的文本文件。是jekyll的设置文件，我们在里面填入如下内容，其他设置都可以用默认选项，具体解释参见官方网页
+
+ 
+
+baseurl: /blog
+
+ 
+
+现在目录结构变成：
+
+ 
+
+/blog
+　　　　|--　_config.yml
+
+ 
+
+第三步，创建模板文件，
+
+ 
+
+在根目录下，创建一个_layouts目录，用于存放模板文件，
+
+ 
+
+$ mkdir _layouts
+
+ 
+
+进入该目录，创建一个default.html文件，作为Blog的默认模板。并在该文件中填入以下内容
+
+ 
+
+　　<!DOCTYPE html>
+
+　　<html>
+
+　　<head>
+
+　　　　<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+　　　　<title>{{ page.title }}</title>
+
+　　</head>
+
+　　<body>
+
+　　　　{{ content }}
+
+　　</body>
+
+　　</html>
+
+ 
+
+Jekyll使用Liquid模板语言，{{ page.title }}表示文章标题，{{ content }}表示文章内容，更多模板变量请参考官方文档
+
+现在目录变为
+
+ 
+
+/blog
+　　　　|--　_config.yml
+　　　　|--　_layouts
+　　　　|　　　|--　default.html
+
+ 
+
+第四步，创建文章
+
+在根目录，创建名为_posts目录，作为blog的文章。
+
+ 
+
+$ mkdir _posts
+
+ 
+
+进入该目录，创建第一篇文章，名为2017-04-19-hello-world.html
+
+在该文件中，填入如下内容，注意行首不能为空格，
+
+ 
+
+---
+layout: default
+title: 你好，世界
+---
+
+<h2>{{ page.title }}</h2>
+
+<p>我的第一篇文章</p>
+
+<p>{{ page.date | date_to_string }}</p>
+
+ 
+
+每篇文章的头部，必须有一个yaml文件头，用来设置一些元数据。它用三根短划线"---"，标记开始和结束，里面每一行设置一种元数据.
+
+"layout:default"，表示该文章的模板使用_layouts目录下的default.html文件；"title: 你好，世界"，表示该文章的标题是"你好，世界".
+
+现在目录结构变成：
+
+ 
+
+/blog
+　　　　|--　_config.yml
+　　　　|--　_layouts
+　　　　|　　　|--　default.html 
+　　　　|--　_posts
+　　　　|　　　|--　2012-08-25-hello-world.html
+
+ 
+
+第五步，创建首页
+
+在根目录，创建一个index.html文件，填入以下内容
+
+ 
+
+　　---
+　　layout: default
+　　title: 我的Blog
+　　---
+
+　　<h2>{{ page.title }}</h2>
+
+　　<p>最新文章</p>
+
+　　<ul>
+
+　　　　{% for post in site.posts %}
+
+　　　　　　<li>{{ post.date | date_to_string }} <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
+
+　　　　{% endfor %}
+
+　　</ul>
+
+ 
+
+现在目录结构变成这样，
+
+ 
+
+/blog
+　　　　|--　_config.yml
+　　　　|--　_layouts
+　　　　|　　　|--　default.html 
+　　　　|--　_posts
+　　　　|　　　|--　2012-08-25-hello-world.html
+　　　　|--　index.html
+
+ 
+
+第六步，发布内容
+
+这个简单的blog，可以发布了，在github上创建仓库blog
+
+ 
+
+　　$ git add .
+
+　　$ git commit -m "first post"
+
+　　$ git remote add origin https://github.com/username/blog.git
+
+　　$ git push origin gh-pages
+
+ 
+
+note: username换成你的用户名
+
+打开生成的页面，http://username.github.com/blog/
+
+这个时候，发现，很多年前，这样的网址是可以打开的，现在打不开了。现在github只能打开http://username.github.io
+
+所以仓库做了下调整，
+
+blog库下的用来看blog文章，
+
+username.github.io库下的用来放首页，可浏览的URL, 及设置文件baseurl.
+
+项目文件结构：我的目录结构丰富了些，你也可以做的更丰富更好看，红圈为主要内容
+
+<img src="../images/1-4.jpg">
+
+现在你可以使用建好的博客了，为了把页面做的更好看，可以加入CSS, IMAGE, JS等
+
+可参考我的库来建博客，http://username.github.io 
+</div>
+<!-- <div id="disqus_thread"></div>
+<script type="text/javascript">  
+    var disqus_shortname = 'lu-yuan-github-io-1'; // required: replace example with your forum shortname 这个地方需要改成你配置的网站名  
+  
+    (function() {  
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;  
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';  
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);  
+    })();  
+</script>  
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>  
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a> -->
+</div>
